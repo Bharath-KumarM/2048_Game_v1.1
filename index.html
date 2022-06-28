@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./src/img/coding.png">
+  <title>How to Play - Screen🔥</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="src/HTPinstructionStyles.css">
+
+</head>
+
+<body>
+   
+  <div class="main-page">
+    <div class="HTP-bg pop-screen">
+      <button class="close-btn"
+      onclick="closeHTPbg()">
+      X
+      </button>
+      <div class="HTP-instruction">
+        <h1>How To Play✨</h1>
+        <ul>
+          <li>
+            Press the arrow keys⌨️ to move the tiles in the grid
+          </li>
+          <li>
+            🎯Aim is to group numeric tiles with the same numbers  
+          </li>
+          <li>
+            Each club you make doubles(2X) the tiles number. Ultimately reach 2048 to win🥇
+          </li>
+        </ul>
+        
+        <div class="HTP-bg-arrow-cnt"> 
+          <div class="key-arrow key-up " style="transform: rotate(180deg);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                stroke-width="0.25" />
+            </svg>
+          </div>
+          <div class="key-arrow key-left" style="transform: rotate(90deg);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                stroke-width="0.25" />
+            </svg>
+          </div>
+          <div class="key-arrow " style="transform: rotate(0deg);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                stroke-width="0.25" />
+            </svg>
+          </div>
+          <div class="key-arrow " style="transform: rotate(-90deg);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                stroke-width="0.25" />
+            </svg>
+          </div>
+        </div>
+      </div> 
+      <hr/>
+      <div class="HTP-grid-cnt">
+          <!-- JavaScript is used to inject the element -->
+      </div>
+    </div> 
+    <div class="game-title">
+      <button class="HTP-btn">?</button>
+      <h1>2048<strong>🎉</strong></h1> 
+      <button class="HTP-btn">O</button>
+      
+    </div>
+    <hr class="main-page-hr"/>
+    <div id="the-grid">
+
+    </div>
+  </div>
+  <script src="src/HTPbg.js"></script>
+  <script type="module" src="./script.js"></script>
+</body>
+
+</html>
