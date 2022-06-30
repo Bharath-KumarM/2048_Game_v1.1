@@ -80,9 +80,11 @@ export default class Grid {
         // Creates a new tile
         const inactiveCell = this.chooseInactiveCells
         if (inactiveCell === null)
-            grid.element.remove()
-        else 
+            this.element.remove()
+        else {
             new Tile(inactiveCell)
+            
+        }
     }
 
 }

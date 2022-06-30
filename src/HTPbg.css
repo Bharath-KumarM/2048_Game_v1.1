@@ -1,0 +1,74 @@
+.pop-screen {
+    animation: pop-screen-open 500ms ease;
+}
+
+@keyframes pop-screen-open {
+    0% {
+        transform: translate(0, 7vh);
+        opacity: 0;
+    } 
+}
+
+@keyframes pop-screen-close {
+    0% {
+        top: 7vh;
+        opacity: 0;
+    }
+    100% {
+        top: 0vh;
+        opacity: 1;
+    }
+    
+}
+
+.pop-screen-close {
+    animation: pop-screen-close 400ms ease;
+    animation-direction: reverse;
+}
+
+
+
+.pop-screen-bg {
+    animation: pop-screen-bg-open 400ms;
+    
+}
+
+
+
+@keyframes pop-screen-bg-open {
+    0% {
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        backdrop-filter: blur(10px);
+    }
+    
+}
+
+
+.pop-screen-bg-close {
+    animation: pop-screen-bg-close 400ms ease;
+    
+}
+
+
+
+@keyframes pop-screen-bg-close {
+    0% {
+        backdrop-filter: blur(10px);
+        opacity: 1;
+    }
+    100% {
+        backdrop-filter: blur(0px);
+        opacity: 0;
+    }
+    
+}
+
+
+
+
+
+
+
+

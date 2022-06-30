@@ -6,13 +6,14 @@ const getInitValue = (initValue) => {
 }
 
 export default class Tile {
-    constructor(cell, initValue){
+    constructor(cell, initValue, type){
         this.x = cell.x
         this.y = cell.y
         this.value = getInitValue(initValue)
 
         // Creates HTML element for tile
-        this.createTile()
+        this.createTile(initValue)
+        this.checkType(type)
 
         // parent cell details
         this.parentCell = cell
@@ -22,12 +23,16 @@ export default class Tile {
         cell.cellElement.appendChild(this.element)
     }
     
-    createTile() {
+    createTile(initValue) {
         this.element = document.createElement('div')
         this.element.className = 'tile main-tile'
         this.element.textContent = this.value.toString()
+        if (initValue === undefined) 
+            this.element.classList.add('new-tile')
     }
-
+    checkType(type) {
+        if (type === 'C') this.element.classList.add('merge-tile')
+    }
     remove(){
         this.element.remove()
         this.parentCell.tile = null

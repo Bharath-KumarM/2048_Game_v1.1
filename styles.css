@@ -22,8 +22,8 @@
   height: 90%;
   font-size: 200%;
   background-color: rgb(255, 255, 255);
-  border: 1px solid gray;
   border-radius: 10px;
+  border: 0;
 }
 
 .main-page {
@@ -39,9 +39,19 @@
   }
 
 /* HTP screen CSS */
-
+.pop-screen-bg {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.413);
+  backdrop-filter: blur(10px);
+  z-index : 2;
+}
 .pop-screen {
-  background-color: #000000;
+  background-color: #0a0101dd;
   width: min(900px, 90vw);
   height: 85vh;
   margin: auto;
@@ -54,7 +64,7 @@
   display: flex;
   flex-direction: row;
   justify-items: auto;
-  z-index: 2;
+  z-index: 3;
 }
 
 
@@ -101,11 +111,7 @@
       border-style: dashed none none none;
       margin: 0 auto;
   }
-  .HTP-instruction{
-      width: 85%;
-      margin: 5% auto 5% auto;
-      height: 50%;
-  }
+
   .HTP-bg-arrow-cnt {
       margin: 0 auto;
   }
@@ -172,7 +178,41 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  /* animation: move 1s ease-in infinite alternate; */
+}
+
+.new-tile {
+  animation: new-tile 300ms ease-in-out 1 normal;
+}
+@keyframes new-tile {
+  from {
+    width: 20%;
+    height: 20%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  
+}
+
+.merge-tile {
+  animation: merge-tile 300ms ease-in-out 1 normal ;
+
+}
+@keyframes merge-tile {
+  from {
+    width: 120%;
+    height: 120%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  
 }
 
 .HTP-tile {

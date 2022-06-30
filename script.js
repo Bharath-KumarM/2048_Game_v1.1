@@ -1,8 +1,8 @@
-import Grid from "./Grid.js"
-import Tile from "./Tile.js"
+import Grid from "./src/Grid.js"
+import Tile from "./src/Tile.js"
 
 // the gridElement size; default size 4x4
-const GRID_SIZE = 5
+const GRID_SIZE = 9
 
 
 
