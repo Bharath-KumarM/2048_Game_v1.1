@@ -8,8 +8,8 @@
   <link rel="icon" type="image/x-icon" href="./src/img/coding.png">
   <title>2048 Game🔥</title>
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="src/HTPinstructionStyles.css">
-  <link rel="stylesheet" href="src/HTPbg.css">
+  <!-- <link rel="stylesheet" href="src/HTPinstructionStyles.css"> -->
+  <!-- <link rel="stylesheet" href="src/HTPbg.css"> -->
 
 
 </head>
@@ -19,8 +19,7 @@
     <div class="pop-screen-bg">
     </div>
     <div class="HTP-bg pop-screen">
-      <button class="close-btn"
-      onclick="closeHTPbg()">
+      <button class="close-btn">
       X
       </button>
       <div class="HTP-instruction">
@@ -65,7 +64,7 @@
         </div>
       </div> 
       <hr/>
-      <div class="HTP-grid-cnt">
+      <div id="HTP-grid">
           <!-- JavaScript is used to inject the element -->
       </div>
     </div> 
@@ -81,7 +80,9 @@
 
     </div>
   </div>
-  <script src="./src/HTPbg.js"></script>
+
+
+  <script type="module" src="./src/HTPbg.js"></script>
   <script type="module" src="./script.js"></script>
 </body>
 

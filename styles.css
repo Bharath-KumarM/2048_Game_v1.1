@@ -1,5 +1,9 @@
 :root {
-  --grid-size: 3 /* Default size*/
+  --grid-size: 3; /* Default size 3X3*/
+  --tile-moveX: 0;
+  --tile-moveY: 0;
+  --the-grid-side: min(600px, 95vmin);
+  --HTP-grid-side: min(200px, 45vmin);
 }
 
 *, *::before, *::after {
@@ -11,20 +15,20 @@
 
 /* The main game title */
 .game-title {
-    width: min(600px, 95vmin);
+    width: var(--the-grid-side);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
   }
-
+/* "?" icon HTP Button */
 .game-title button{
-  width: 50px;
+  width: 25%;
   height: 90%;
   font-size: 200%;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   border: 0;
-}
+  }
 
 .main-page {
     display: flex;
@@ -35,7 +39,7 @@
 
 .main-page-hr {
     border-top: dashed 0.5vmin rgba(98, 98, 98, 0.637);
-    width: min(600px, 95vmin);
+    width: var(--the-grid-side);
   }
 
 /* HTP screen CSS */
@@ -48,8 +52,9 @@
   position: absolute;
   background-color: rgba(0, 0, 0, 0.413);
   backdrop-filter: blur(10px);
-  z-index : 2;
+  z-index : 4;
 }
+
 .pop-screen {
   background-color: #0a0101dd;
   width: min(900px, 90vw);
@@ -59,12 +64,11 @@
   border-radius: 7px;
   position: absolute;
 
-
   /* Flex Configuration */
   display: flex;
   flex-direction: row;
   justify-items: auto;
-  z-index: 3;
+  z-index: 5;
 }
 
 
@@ -117,30 +121,30 @@
   }
 }
 
-/* Grids */
-.HTP-grid-cnt {
+/* HTP Grid */
+#HTP-grid {
   background-color: rgb(254, 254, 254);
   border-radius: 1vmin;
-  width: min(200px, 45vmin);
-  height: min(200px, 45vmin);
+  width: var(--HTP-grid-side);
+  height: var(--HTP-grid-side);
   margin: auto;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--grid-size), 1fr);
   padding: 0.5vmin;
-  gap: 0.5vmin;
+  gap: calc(3vmin / var(--grid-size));
 }
 
 
-/* Mian Frid */
+/* Mian Grid */
 #the-grid {
-  width: min(600px, 95vmin);
-  height: min(600px, 95vmin);
+  width: var(--the-grid-side);
+  height: var(--the-grid-side);
   margin: auto;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   padding: 1vmin;
-  gap: 1vmin;
+  gap: calc(3vmin / var(--grid-size));
   
 }
 
@@ -157,13 +161,12 @@
 }
 
 
-.HTP-cell {
-  border-radius: 1vmin;
+#the-grid .cell{
+  border-radius: calc(var(--the-grid-side) / var(--grid-size) / 10);
 }
 
-
-.mian-cell {
-  border-radius: calc(7vmin/var(--grid-size));
+#HTP-grid .cell {
+  border-radius: calc(var(--HTP-grid-side) / var(--grid-size) / 10);
 }
 
 
@@ -178,15 +181,29 @@
   width: 100%;
   height: 100%;
   z-index: 1;
+  border-radius: calc(40% / var(--grid-size));
+  font-weight: bold;
 }
+
+#the-grid .tile{
+  font-size: calc(var(--the-grid-side) / var(--grid-size) / 2.5);
+  border-radius: calc(var(--the-grid-side) / var(--grid-size) / 10);
+}
+
+#HTP-grid .tile {
+  font-size: calc(var(--HTP-grid-side) / var(--grid-size) / 2.5);
+
+  border-radius: calc(var(--HTP-grid-side) / var(--grid-size) / 10);
+}
+
 
 .new-tile {
   animation: new-tile 300ms ease-in-out 1 normal;
 }
 @keyframes new-tile {
   from {
-    width: 20%;
-    height: 20%;
+    width: 10%;
+    height: 10%;
     opacity: 0;
   }
   to {
@@ -198,40 +215,189 @@
 }
 
 .merge-tile {
-  animation: merge-tile 300ms ease-in-out 1 normal ;
+  animation: merge-tile 400ms ease ;
 
 }
 @keyframes merge-tile {
   from {
-    width: 120%;
-    height: 120%;
-    opacity: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  20% {
+    width: 115%;
+    height: 115%;
   }
   to {
     width: 100%;
     height: 100%;
-    opacity: 1;
   }
   
 }
 
-.HTP-tile {
-  font-size: min(3vmin, 64px) ;
+
+#the-grid .tile-move {
+  animation: tile-move 1100ms ease;
+  z-index: 2;
+}
+
+
+@keyframes tile-move {
+  100% {
+    transform: translate(
+      calc(var(--the-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.99), 
+      calc(var(--the-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.99))
+    }
+  }
+
+
+#HTP-grid .tile-move {
+    animation: HTP-tile-move 1100ms ease;
+    z-index: 2;
+  }
+  
+  @keyframes HTP-tile-move {
+    100% {
+      transform: translate(
+        calc(var(--HTP-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.99), 
+        calc(var(--HTP-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.99))
+      }
+  }
+
+/* HTP Instruction Styling */
+
+.HTP-instruction {
+  margin: auto;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.HTP-instruction h1 {
+  margin: 0;
+  font-size: min(5vmin, 30px);
+  color: aliceblue;
+}
+
+
+.HTP-instruction li {
+  font-size: max(2.5vmin, 14px);
+  color: aliceblue;
+  
+}
+
+.HTP-bg-arrow-cnt {
+  margin: 20% auto;
+  width: min(175px, 35vmin);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2%;
+  
+}
+
+.key-up {
+  grid-column-start: 2;
+}
+
+.key-left {
+  grid-column-start: 1;
+}
+
+/* Arrow key animation */
+
+.key-arrow {
+  border: 2px solid black;
   border-radius: 1vmin;
+  background-color: white;
+  transition: all 500ms;
 }
 
-.main-tile {
-  font-size: calc(25vmin/var(--grid-size)) ;
-  border-radius: calc(7vmin/var(--grid-size));
+.key-arrow svg {
+  fill: grey;
+  display: block;
+  transition: all 500ms;
+}
+
+.key-arrow-active {
+  background-color: rgb(59, 54, 54);
+  border-color: white;
 }
 
 
 
 
 
+.key-arrow-active svg {
+  fill: rgb(255, 255, 255)
+}
 
 
+@media only screen and (max-width: 640px) {
+  .HTP-instruction{
+      width: 85%;
+      margin: 7% auto;
+      height: 50%;
+  }
+  .HTP-bg-arrow-cnt {
+      margin: auto;
+  }
+}
 
+/* pop Screeen Styling  */
+
+:root {
+  --htp-animation-time: 200ms 
+}
+
+.pop-screen {
+  animation: pop-screen-open var(--htp-animation-time) ease;
+}
+
+@keyframes pop-screen-open {
+  0% {
+      transform: translate(0, 7vh);
+      opacity: 0;
+  } 
+}
+
+.pop-screen-close {
+  animation: pop-screen-close var(--htp-animation-time) ease;
+}
+
+@keyframes pop-screen-close {
+  100% {
+      transform: translate(0, 7vh);
+      opacity: 0;
+  }
+  
+}
+
+.pop-screen-bg {
+  animation: pop-screen-bg-open var(--htp-animation-time) ease;
+  
+}
+
+@keyframes pop-screen-bg-open {
+  100% {
+      backdrop-filter: blur(10px);
+  }
+  
+}
+
+
+.pop-screen-bg-close {
+  animation: pop-screen-bg-close var(--htp-animation-time) ease;
+  
+}
+
+@keyframes pop-screen-bg-close {
+  100% {
+      backdrop-filter: blur(0px);
+      opacity: 0;
+  }
+  
+}
 
 
 
