@@ -1,34 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 :root {
   --grid-size: 3; /* Default size 3X3*/
   --tile-moveX: 0;
   --tile-moveY: 0;
   --the-grid-side: min(600px, 95vmin);
   --HTP-grid-side: min(200px, 45vmin);
+  --color-prime: rgb(201, 198, 198);
+  --color-base: rgb(24, 23, 23);
+  --color-grid: rgb(136, 136, 136);
+  --color-cell: rgba(72, 68, 68, 0.92);
 }
 
 *, *::before, *::after {
-    box-sizing: border-box;
-    font-family: Arial;
+  box-sizing: border-box;
+  font-family: Arial;
     margin: 0;
     padding: 0;
   }
-
+body {
+  background-color: var(--color-base);
+  transition: background-color 1.5s;
+}
 /* The main game title */
 .game-title {
     width: var(--the-grid-side);
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 5px;
+    margin-bottom: 0;
+    
   }
+  
+.game-title h1{
+  color: var(--color-prime);
+
+  font-family: 'Roboto Mono', monospace;
+  font-size: calc(var(--the-grid-side) / 10);
+
+}
 /* "?" icon HTP Button */
-.game-title button{
-  width: 25%;
-  height: 90%;
-  font-size: 200%;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  border: 0;
+.title-btn{
+  font-size: calc(var(--the-grid-side) / 27);
+  padding: 0.5%;
+  border-radius: 40%;
+  border: 3px solid rgb(168, 168, 168);
+  color: var(--color-prime);
+  background-color: var(--color-base);
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 1s background-color;
+}
+
+
+.HTP-btn:hover{
+  background-color: #000000d8;
+}
+
+.score-board{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+
+}
+
+.score-board-title{
+  font-size: calc(var(--HTP-grid-side) / 15);
+  font-weight: bolder;
+  color: var(--color-prime);
+}
+
+.score-board-hr{
+  width: 100%;
+  border: none;
+  border-top: solid var(--color-prime) 1.5px;
+}
+
+
+
+.score-board-score{
+  text-align: center;
+  width:  calc(var(--HTP-grid-side) / 3);
+  font-size:  calc(var(--HTP-grid-side) / 9);
+  font-weight: bold;
+  transition: 200ms font-size;
+  color: var(--color-prime);
+
+}
+.score-board-score-active {
+  /* font-size:  calc(var(--HTP-grid-side) / 8); */
+}
+
+.score-points {
+  position: absolute;
+  color: var(--color-prime);
+  font-size: alc(var(--HTP-grid-side) / 10);
+  font-weight: bolder;
+  opacity: 0;
+}
+
+.score-points-active {
+  opacity: 1;
+  animation: score-points-move 400ms linear 1;
+}
+
+@keyframes score-points-move {
+  form {
+    opacity: 1;
   }
+  to {
+    transform: translate(0, -30px);
+    opacity: 0.6;
+  }
+  
+}
+
+
 
 .main-page {
     display: flex;
@@ -38,11 +130,19 @@
     }
 
 .main-page-hr {
-    border-top: dashed 0.5vmin rgba(98, 98, 98, 0.637);
+    border: none;
+    border-top: dashed 0.5vmin var(--color-prime);
     width: var(--the-grid-side);
   }
 
 /* HTP screen CSS */
+.pop-screen-cnt {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  display: none;
+}
+
 .pop-screen-bg {
   height: 100vh;
   width: 100vw;
@@ -77,6 +177,7 @@
 /* How -to-play-bg close btn */
 .close-btn {
   background-color: transparent;
+  text-align: center;
   color: rgba(255, 255, 255, 0.53);
   font-weight: 700;
   border: solid white 0.5px;
@@ -90,7 +191,6 @@
 .close-btn:hover {
   color: rgb(255, 255, 255);
   font-size: 3.1vmin;
-
 }
 
 
@@ -100,7 +200,7 @@
   height: 80%;
   margin: auto 0;
   border-style: none dashed none none;
-  color: grey
+  color: rgb(161, 192, 198)
 }
 
 
@@ -123,7 +223,7 @@
 
 /* HTP Grid */
 #HTP-grid {
-  background-color: rgb(254, 254, 254);
+  background-color: rgb(195, 194, 194);
   border-radius: 1vmin;
   width: var(--HTP-grid-side);
   height: var(--HTP-grid-side);
@@ -133,31 +233,37 @@
   grid-template-columns: repeat(var(--grid-size), 1fr);
   padding: 0.5vmin;
   gap: calc(3vmin / var(--grid-size));
+  /* gap: calc(var(--HTP-grid-side) / var(--grid-size) / 10); */
+
 }
 
 
 /* Mian Grid */
 #the-grid {
+  background-color: var(--color-grid);
+  border-radius: calc(var(--the-grid-side) / 55);
   width: var(--the-grid-side);
   height: var(--the-grid-side);
   margin: auto;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), 1fr);
   padding: 1vmin;
-  gap: calc(3vmin / var(--grid-size));
+  gap: calc(var(--the-grid-side) / var(--grid-size) / 10);
+  padding: calc(var(--the-grid-side) / var(--grid-size) / 10);
+  transition: 1s background-color;
   
 }
 
 
 /* For Cells */
 .cell {
-  background-color: rgb(255, 255, 255);
   aspect-ratio: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: rgb(192, 189, 185);
+  background-color: var(--color-cell);
+  transition: 1s background-color;
 }
 
 
@@ -172,8 +278,6 @@
 
 /* For Tiles */
 .tile{
-  background-color: rgb(206, 255, 255);
-  border: solid 2px rgb(32, 25, 25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +290,7 @@
 }
 
 #the-grid .tile{
-  font-size: calc(var(--the-grid-side) / var(--grid-size) / 2.5);
+  font-size: calc(var(--the-grid-side) / var(--grid-size) / 3);
   border-radius: calc(var(--the-grid-side) / var(--grid-size) / 10);
 }
 
@@ -198,7 +302,7 @@
 
 
 .new-tile {
-  animation: new-tile 300ms ease-in-out 1 normal;
+  animation: new-tile 200ms ease-in-out 1 normal;
 }
 @keyframes new-tile {
   from {
@@ -215,7 +319,7 @@
 }
 
 .merge-tile {
-  animation: merge-tile 400ms ease ;
+  animation: merge-tile 200ms ease ;
 
 }
 @keyframes merge-tile {
@@ -237,7 +341,7 @@
 
 
 #the-grid .tile-move {
-  animation: tile-move 1100ms ease;
+  animation: tile-move 200ms ease;
   z-index: 2;
 }
 
@@ -245,8 +349,8 @@
 @keyframes tile-move {
   100% {
     transform: translate(
-      calc(var(--the-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.99), 
-      calc(var(--the-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.99))
+      calc(var(--the-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.98), 
+      calc(var(--the-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.98))
     }
   }
 
@@ -259,8 +363,8 @@
   @keyframes HTP-tile-move {
     100% {
       transform: translate(
-        calc(var(--HTP-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.99), 
-        calc(var(--HTP-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.99))
+        calc(var(--HTP-grid-side) * var(--tile-moveX) / var(--grid-size) * 0.98), 
+        calc(var(--HTP-grid-side) * var(--tile-moveY) / var(--grid-size) * 0.98))
       }
   }
 
@@ -351,6 +455,7 @@
 }
 
 .pop-screen {
+  /* display: none; */
   animation: pop-screen-open var(--htp-animation-time) ease;
 }
 
@@ -362,6 +467,7 @@
 }
 
 .pop-screen-close {
+  
   animation: pop-screen-close var(--htp-animation-time) ease;
 }
 
@@ -374,6 +480,7 @@
 }
 
 .pop-screen-bg {
+  /* display: none; */
   animation: pop-screen-bg-open var(--htp-animation-time) ease;
   
 }

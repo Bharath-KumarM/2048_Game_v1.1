@@ -2,6 +2,8 @@ import Tile from "./Tile.js"
 
 
 
+
+
 const timeOut = (resolve, time) => setTimeout(resolve, time)
 function delay(time) {
     return new Promise((resolve) => timeOut(resolve, time));
@@ -39,6 +41,9 @@ export default class Grid {
         this.element = gridElement
         this.cells = createCells(this.gridSize)
         this.insertCells()
+        this.isAnimateEnd = true
+        this.score = 0
+        this.pointsPerMove = 0
     }
 
     clearTiles(){
@@ -68,68 +73,113 @@ export default class Grid {
 
     // This method is 💖 of the game🔥
     async moveTiles(swipeDir) {
+        if (!this.isAnimateEnd){
+            // Since the past move animation doesn't end yet!🐌
+            return new Promise((res, rej) => res())
+        }
+
+        this.isAnimateEnd = false
+
         const [start, fieldIncr, cellIncr] = getIters(this.gridSize, swipeDir)
 
         // get moved tiles data & count
         let cellIndex = start 
-        let [moveTilesData, moveStepsData] = [[], []]
+        let [moveTilesData, moveStepsData, pointsCounter] = [[], [], 0]
         for (let i=0; i<this.gridSize; i++){
 
-            let [movedTiles, moveCounts] = this.getMovedTilesVal(cellIndex, cellIncr)
+            let [movedTiles, moveCounts, pointsCount] = this.getMovedTilesData(cellIndex, cellIncr)
             moveTilesData.push(movedTiles)
             moveStepsData.push(moveCounts)
-        
+            pointsCounter += pointsCount
             cellIndex += fieldIncr
         }
 
-        // Sliding Animations!
-        cellIndex = this.doSlidingTransform(start, swipeDir, moveStepsData, cellIncr, fieldIncr);
+        if (pointsCounter > 0) {
+            this.pointsPerMove = pointsCounter
+            this.score += pointsCounter
+        }
+        else {
+            this.pointsPerMove = 0
+        }
+        // Sliding Animations before deleting the tile!
+        await this.doSlidingTransform(start, swipeDir, moveStepsData, cellIncr, fieldIncr);
 
-        await this.deleteCurrentTiles()
+        this.deleteCurrentTiles()
+        await this.createNewTiles(start, moveTilesData, cellIncr, fieldIncr)
 
-        this.createNewTiles(start, moveTilesData, cellIncr, fieldIncr);
-
-        // Creates a new tile
-        this.spawnNewTile()
+        this.isAnimateEnd = true
+        // return new Promise((res, rej) => res())
     }
 
 
-    doSlidingTransform(cellIndex, swipeDir, moveStepsData, cellIncr, fieldIncr) {
+    async doSlidingTransform(cellIndex, swipeDir, moveStepsData, cellIncr, fieldIncr) {
+
+        let animateCount = 0
+        let promiseResolved 
+        const animatePromise = new Promise((res, rej) => {
+            promiseResolved = res
+        })
+        
+        const handleSlideAnimatoinEnd = (e) => {
+            animateCount--
+            e.srcElement.removeEventListener('webkitAnimationEnd', handleSlideAnimatoinEnd)
+            if (animateCount === 0){
+                promiseResolved()
+            }
+        }
+
+
         for (let i = 0; i < this.gridSize; i++) {
             let cellIndex2 = cellIndex;
             for (let j = 0; j < this.gridSize; j++) {
-                if (this.cells[cellIndex2].tile) {
+                let tile = this.cells[cellIndex2].tile
+
+                if (tile) {
                     let [X, Y] = getAnimatXY(swipeDir, moveStepsData[i][j]);
                     if (X !== 0)
-                        this.cells[cellIndex2].tile.element.style.setProperty('--tile-moveX', X);
+                        tile.element.style.setProperty('--tile-moveX', X);
                     if (Y !== 0)
-                        this.cells[cellIndex2].tile.element.style.setProperty('--tile-moveY', Y);
-                    if (X !== 0 || Y !== 0)
-                        this.cells[cellIndex2].tile.element.classList.add('tile-move');
+                        tile.element.style.setProperty('--tile-moveY', Y);
+                    if (X !== 0 || Y !== 0){
+                        tile.element.addEventListener('webkitAnimationEnd', handleSlideAnimatoinEnd)
+                        tile.element.classList.add('tile-move');
+                        animateCount++
+                    }
                 }
                 cellIndex2 += cellIncr;
             }
             cellIndex += fieldIncr;
         }
-        return cellIndex;
+        if (animateCount === 0) promiseResolved()
+        return animatePromise
+        
     }
 
-    createNewTiles(cellIndex, moveTilesData, cellIncr, fieldIncr) {
+    async createNewTiles(cellIndex, moveTilesData, cellIncr, fieldIncr) {
+        let animationEndPromises = []
+
         for (let i = 0; i < this.gridSize; i++) {
             let index = cellIndex;
             for (const data of moveTilesData[i]) {
-                if (data.isColapse)
-                    new Tile(this.cells[index], data.value, 'C');
+                let tilePromise
+                if (data.isColapse){
+                    tilePromise = new Tile(this.cells[index], data.value, 'C')
+                }
                 else
-                    new Tile(this.cells[index], data.value);
+                tilePromise = new Tile(this.cells[index], data.value)
+
                 index += cellIncr;
+                animationEndPromises.push(tilePromise)
             }
             cellIndex += fieldIncr;
         }
+
+        // Creates a new tile
+        this.spawnNewTile()
+        return Promise.all(animationEndPromises)
     }
 
-    async deleteCurrentTiles() {
-        await delay(1000);
+    deleteCurrentTiles() {
         for (let i = 0; i < this.gridSize ** 2; i++) {
             if (this.cells[i].tile) {
                 this.cells[i].tile.element.classList.remove('tile-move');
@@ -145,10 +195,9 @@ export default class Grid {
     }
 
 
-    getMovedTilesVal(cellIndex, cellIncr) {
-        let movedTiles = []
-        let moveCounts  = []
-        let moveCount = 0
+    getMovedTilesData(cellIndex, cellIncr) {
+        let [movedTiles, moveCounts, moveCount] = [[], [], 0]
+        let pointsCounter = 0
 
 
         for (let j = 0; j < this.gridSize; j++) {
@@ -164,6 +213,7 @@ export default class Grid {
                     }
                     moveCount++
                     moveCounts.push(moveCount)
+                    pointsCounter += (value * 2)
                 }
                 else {
                     moveCounts.push(moveCount)
@@ -179,8 +229,8 @@ export default class Grid {
             }
             cellIndex += cellIncr
         }
-        // console.log(moveCounts)
-        return [movedTiles, moveCounts]
+        
+        return [movedTiles, moveCounts, pointsCounter]
     }
 
 }
@@ -212,4 +262,7 @@ const createCells = (gridSize) => {
     return cells
 
 }
+
+
+
 

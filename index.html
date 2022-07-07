@@ -16,63 +16,29 @@
 
 <body>
   <div class="main-page">
-    <div class="pop-screen-bg">
+
+    <div class="pop-screen-cnt">
+      
     </div>
-    <div class="HTP-bg pop-screen">
-      <button class="close-btn">
-      X
-      </button>
-      <div class="HTP-instruction">
-        <h1>How To Play✨</h1>
-        <ul>
-          <li>
-            Press the arrow keys⌨️ to move the tiles in the grid
-          </li>
-          <li>
-            🎯Aim is to group numeric tiles with the same numbers  
-          </li>
-          <li>
-            Each club you make doubles(2X) the tiles number. Ultimately reach 2048 to win🥇
-          </li>
-        </ul>
-        
-        <div class="HTP-bg-arrow-cnt"> 
-          <div class="key-arrow key-up " style="transform: rotate(180deg);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                stroke-width="0.25" />
-            </svg>
-          </div>
-          <div class="key-arrow key-left" style="transform: rotate(90deg);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                stroke-width="0.25" />
-            </svg>
-          </div>
-          <div class="key-arrow " style="transform: rotate(0deg);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                stroke-width="0.25" />
-            </svg>
-          </div>
-          <div class="key-arrow " style="transform: rotate(-90deg);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-              <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                stroke-width="0.25" />
-            </svg>
-          </div>
-        </div>
-      </div> 
-      <hr/>
-      <div id="HTP-grid">
-          <!-- JavaScript is used to inject the element -->
-      </div>
-    </div> 
+
     
     <div class="game-title">
-      <button class="HTP-btn">?</button>
-      <h1>2048<strong>🎉</strong></h1> 
-      <button class="HTP-btn">O</button>
+      <div class="title-btn HTP-btn">🤔</div>
+      <div class="title-btn option-btn">🛠️</div>
+      <h1>2048</h1> 
+      <div class="title-btn dark-light-btn">🌙</div>
+      <div class="score-board">
+        <div class="score-points">
+          +24
+        </div>
+        <div class="score-board-title">
+          Score
+        </div>
+        <hr class="score-board-hr">
+        <div class="score-board-score">
+            0
+        </div>
+      </div>
       
     </div>
     <hr class="main-page-hr"/>
@@ -82,8 +48,64 @@
   </div>
 
 
-  <script type="module" src="./src/HTPbg.js"></script>
   <script type="module" src="./script.js"></script>
+  <script type="module" src="./src/HTPbg.js"></script>
+  <script type="module" src="./src/option.js"></script>
+
+  <script type="text/template" id="HTP-html">
+    <div class="pop-screen-bg">
+      <div class="HTP-bg pop-screen">
+        <div class="close-btn">
+        X
+        </div>
+        <div class="HTP-instruction">
+          <h1>How To Play✨</h1>
+          <ul>
+            <li>
+              🎮Press the arrow keys⌨️ to move the tiles in the grid.
+            </li>
+            <li>
+              🎯Aim is to group numeric tiles with the same numbers🎉.  
+            </li>
+            <li>
+              Each club you make doubles(2X) the tiles number. Ultimately reach 2048 to win!🥇
+            </li>
+          </ul>
+          
+          <div class="HTP-bg-arrow-cnt"> 
+            <div class="key-arrow key-up " style="transform: rotate(180deg);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                  stroke-width="0.25" />
+              </svg>
+            </div>
+            <div class="key-arrow key-left" style="transform: rotate(90deg);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                  stroke-width="0.25" />
+              </svg>
+            </div>
+            <div class="key-arrow " style="transform: rotate(0deg);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                  stroke-width="0.25" />
+              </svg>
+            </div>
+            <div class="key-arrow " style="transform: rotate(-90deg);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
+                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
+                  stroke-width="0.25" />
+              </svg>
+            </div>
+          </div>
+        </div> 
+        <hr/>
+        <div id="HTP-grid">
+        </div>
+      </div> 
+    </div>
+
+  </script>
 </body>
 
 </html>
