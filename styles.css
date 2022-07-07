@@ -92,9 +92,6 @@ body {
   color: var(--color-prime);
 
 }
-.score-board-score-active {
-  /* font-size:  calc(var(--HTP-grid-side) / 8); */
-}
 
 .score-points {
   position: absolute;
@@ -356,7 +353,7 @@ body {
 
 
 #HTP-grid .tile-move {
-    animation: HTP-tile-move 1100ms ease;
+    animation: HTP-tile-move 200ms ease;
     z-index: 2;
   }
   
@@ -414,22 +411,19 @@ body {
   border: 2px solid black;
   border-radius: 1vmin;
   background-color: white;
-  transition: all 500ms;
+  transition: all 100ms;
 }
 
 .key-arrow svg {
   fill: grey;
   display: block;
-  transition: all 500ms;
+  transition: all 100ms;
 }
 
 .key-arrow-active {
   background-color: rgb(59, 54, 54);
   border-color: white;
 }
-
-
-
 
 
 .key-arrow-active svg {
