@@ -1,6 +1,6 @@
 const getInitValue = (initValue) => {
     if (initValue !== undefined) return initValue
-    let initValues = [2, 4] 
+    let initValues = [2, 2, 2, 4] //Increased the probablity of getting 2 
     return initValues[Math.floor(Math.random() * initValues.length)]
 
 }
@@ -65,7 +65,7 @@ export default class Tile {
 // font = #201919, #EDEEF7
 const getTileColor = {
     2: ['#201919', '#E4FBFF'],
-    4: ['#201919', '#0AA1DD'],
+    4: ['#201919', '#58bef0'],
     8: ['#201919', '#ABC9FF'],
     16: ['#EBFFFB', '#3161A3'],
     32: ['#201919', '#F1FFAB'],

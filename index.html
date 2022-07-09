@@ -18,8 +18,9 @@
   <div class="main-page">
 
     <div class="pop-screen-cnt">
-    </div>
 
+    </div>
+      
     
     <div class="game-title">
       <div class="title-btn HTP-btn">🤔</div>
@@ -49,7 +50,8 @@
 
   <script type="module" src="./script.js"></script>
   <script type="module" src="./src/HTPbg.js"></script>
-  <script type="module" src="./src/option.js"></script>
+  <script type="module" src="./src/optionScreen.js"></script>
+  <script src="./src/darkLight.js"></script>
 
   <script type="text/template" id="HTP-html">
     <div class="pop-screen-bg">
@@ -105,11 +107,38 @@
     </div>
   </script>
 
-  <script type="text/template" id="opt-html">
+  <script type="text/template" id="opt-scrn-html">
     <div class="pop-screen-bg">
-      <div class="opt-screen pop-screen">
-        <div class="close-btn">
-        X
+      <div class="pop-screen">
+        <div class="close-btn">X</div>
+        <div class="opt-scrn-cnt">
+          <div class="chg-grid-size-cnt">
+            <h1>Change Grid Size📐</h1>
+            <div class="chg-grid-size-opts">
+              <button class="chg-grid-size-3">3X3</button>
+              <button class="chg-grid-size-4">4X4</button>
+              <button class="chg-grid-size-5">5X5</button>
+              <button class="chg-grid-size-6">6X6</button>
+              <button class="chg-grid-size-7">7X7</button>
+              <button class="chg-grid-size-8">8X8</button>
+              <button class="chg-grid-size-9">9X9</button>
+              <button class="chg-grid-size-10">10X10</button>
+            </div>
+          </div>
+          <div class="restart-btn-cnt">
+            <button>Start Fresh🤩</button>
+          </div>
+          <hr class="opt-scrn-hr">
+        </div>
+        <div class="chng-confirm-scrn-cnt">
+          <div class="chng-confirm-scrn">
+            <h3>Are you sure😕? You will lose the progress🎈</h3>
+            <div class="chng-confirm-scrn-opt-cnt">
+              <button class="chng-confirm-scrn-opt-yes">YES</button>
+              <button class="chng-confirm-scrn-opt-no">NO</button>
+            </div>
+          </div> 
+
         </div>
       </div>
     </div>

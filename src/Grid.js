@@ -1,13 +1,7 @@
 import Tile from "./Tile.js"
+import updateScoreBoard from "./scoreBoard.js"
 
 
-
-
-
-const timeOut = (resolve, time) => setTimeout(resolve, time)
-function delay(time) {
-    return new Promise((resolve) => timeOut(resolve, time));
-  }
 
 const getIters = (gridSize, swipeDir) => {
     let [start, fieldIncr, cellIncr] = [null, null, null]
@@ -37,12 +31,13 @@ const getAnimatXY = (swipeDir, moveCount) => {
 
 export default class Grid {
     constructor(gridSize, gridElement){
+        gridElement.style.setProperty('--grid-size', gridSize)
         this.gridSize = gridSize
         this.element = gridElement
+        this.score = 0
         this.cells = createCells(this.gridSize)
         this.insertCells()
         this.isAnimateEnd = true
-        this.score = 0
         this.pointsPerMove = 0
     }
 
@@ -55,9 +50,16 @@ export default class Grid {
     }
 
     insertCells() {
+        // remove exiting cells, comes effective when grid size changes
+        while (this.element.hasChildNodes()) {
+            this.element.removeChild(this.element.firstChild);
+          }
         for (const cell of this.cells){
             this.element.appendChild(cell.cellElement)
         }
+        new Tile(this.chooseInactiveCells)
+        new Tile(this.chooseInactiveCells)
+        updateScoreBoard(this)
     }
 
     get chooseInactiveCells(){
@@ -109,6 +111,7 @@ export default class Grid {
 
         this.isAnimateEnd = true
         // return new Promise((res, rej) => res())
+        updateScoreBoard(this)
     }
 
 
@@ -251,7 +254,7 @@ class Cell {
 }
 
 // Pure Function
-const createCells = (gridSize) => {
+const createCells = (gridSize) => { 
     const cells = []
     for (let x=0; x<gridSize; x++){
         for (let y=0; y<gridSize; y++){
