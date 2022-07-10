@@ -9,9 +9,7 @@ const GRID_SIZE = 4
 const gridElement = document.getElementById('the-grid')
 
 
-// Grid Created
-export let grid = new Grid(GRID_SIZE, gridElement)
-
+let grid = new Grid(GRID_SIZE, gridElement)
 
 document.addEventListener('keydown', (e)=>{
     switch(e.key){

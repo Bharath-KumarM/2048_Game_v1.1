@@ -23,6 +23,10 @@ body {
   background-color: var(--color-base);
   transition: background-color 1.5s;
 }
+
+button:hover {
+  cursor: pointer;
+}
 /* The main game title */
 .game-title {
     width: var(--the-grid-side);
@@ -43,7 +47,7 @@ body {
 }
 /* "?" icon HTP Button */
 .title-btn{
-  font-size: calc(var(--the-grid-side) / 40);
+  font-size: calc(var(--the-grid-side) / 30);
   padding: 0.5%;
   border-radius: 20%;
   border: 3px solid rgb(168, 168, 168);
@@ -150,8 +154,8 @@ body {
   flex-direction: column;
   align-items: center;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.413);
   backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.699);
   z-index : 4;
 }
 
@@ -448,7 +452,7 @@ body {
 /* pop Screeen Styling  */
 
 :root {
-  --htp-animation-time: 200ms 
+  --htp-animation-time: 300ms 
 }
 
 .pop-screen {

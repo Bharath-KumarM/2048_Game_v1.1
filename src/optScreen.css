@@ -1,5 +1,9 @@
 
 
+:root {
+    --opt-animation-time: 300ms 
+  }
+
 .opt-scrn-cnt {
     width: 100%;
     display: flex;
@@ -85,16 +89,28 @@
     position: absolute;
     justify-content: center;
     align-items: center;
-    display: none;
+    display: flex;
     opacity: 1;
-    background-color: #000000d7;
+    background-color: #000000ab;
     z-index: 6;
+}
+
+.chng-confirm-scrn-cnt-active{
+    animation: chng-cnt-screen-show var(--opt-animation-time) ease-in-out;
+}
+
+@keyframes chng-cnt-screen-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .chng-confirm-scrn {
     background-color: #252525;
     width: min(450px, 45vw);
-    height: min(250px, 50vmin);
     color: aliceblue;
     margin: auto;
     border-radius: 7px;
@@ -106,8 +122,41 @@
     z-index: 6;
     display: flex;
     flex-direction: column;
-    gap: 20%;
+    gap: 20px;
 }
+
+.chng-confirm-scrn-active {
+    animation: show-confirm-scrn var(--opt-animation-time) ease-out;
+}
+
+@keyframes show-confirm-scrn {
+    from {
+        opacity: 0;
+        transform: translate(0, 100px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    
+}
+
+.chng-confirm-scrn-deActive {
+    animation: hide-confirm-scrn var(--opt-animation-time) ease-out;
+}
+
+@keyframes hide-confirm-scrn {
+    from {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(0, 100px);
+    }
+    
+}
+
 .chng-confirm-scrn-opt-cnt{
 
     display: flex;
@@ -120,5 +169,10 @@
     height: 40px;
     border-radius: 5px;
     margin: 5%;
+    border: solid rgb(72, 72, 72) 2px;
 }
 
+.chng-confirm-scrn button {
+    background-color: #ffffff;
+    color: rgb(18, 13, 13);
+}
