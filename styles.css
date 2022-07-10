@@ -135,7 +135,7 @@ button:hover {
 
 .main-page-hr {
     border: none;
-    border-top: dashed 0.5vmin var(--color-prime);
+    border-top: dashed 0.4vmin var(--color-prime);
     width: var(--the-grid-side);
   }
 

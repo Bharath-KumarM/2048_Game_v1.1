@@ -30,7 +30,7 @@ const getAnimatXY = (swipeDir, moveCount) => {
 }
 
 export default class Grid {
-    constructor(gridSize, gridElement){
+    constructor(gridSize, gridElement, tiles){
         gridElement.style.setProperty('--grid-size', gridSize)
         this.gridSize = gridSize
         this.element = gridElement

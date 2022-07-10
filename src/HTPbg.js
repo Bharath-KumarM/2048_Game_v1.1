@@ -26,6 +26,8 @@ const arrowMoves = ['U', 'D', 'L', 'R', 'L']
 const openHTPbg = async () => {
     isAnimationRunning = true
 
+    if (grid) grid.clearTiles()
+
     createHTPelements()
     referAllElements()
 
@@ -51,6 +53,7 @@ const openHTPbg = async () => {
 }
 
 const closeHTPbg =  () => {
+    grid.clearTiles()
     isAnimationRunning = false
 
     //Starts the closing animation
