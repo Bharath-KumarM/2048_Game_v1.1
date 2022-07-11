@@ -1,5 +1,5 @@
-import Tile from "./Tile.js"
 import updateScoreBoard from "./scoreBoard.js"
+import Tile from "./Tile.js"
 
 
 
@@ -30,7 +30,7 @@ const getAnimatXY = (swipeDir, moveCount) => {
 }
 
 export default class Grid {
-    constructor(gridSize, gridElement, tiles){
+    constructor(gridSize, gridElement, savedGameData){
         gridElement.style.setProperty('--grid-size', gridSize)
         this.gridSize = gridSize
         this.element = gridElement
@@ -39,6 +39,8 @@ export default class Grid {
         this.insertCells()
         this.isAnimateEnd = true
         this.pointsPerMove = 0
+
+        processSaveData(this, savedGameData)
     }
 
     clearTiles(){
@@ -57,9 +59,6 @@ export default class Grid {
         for (const cell of this.cells){
             this.element.appendChild(cell.cellElement)
         }
-        new Tile(this.chooseInactiveCells)
-        new Tile(this.chooseInactiveCells)
-        updateScoreBoard(this)
     }
 
     get chooseInactiveCells(){
@@ -110,8 +109,9 @@ export default class Grid {
         await this.createNewTiles(start, moveTilesData, cellIncr, fieldIncr)
 
         this.isAnimateEnd = true
-        // return new Promise((res, rej) => res())
-        updateScoreBoard(this)
+
+        // Save the game progress💾
+        saveLocally(this)
     }
 
 
@@ -243,7 +243,7 @@ export default class Grid {
 
 
 class Cell {
-    constructor(x,y){
+    constructor(x , y){
         this.cellElement = document.createElement('div')
         this.cellElement.classList.add('cell')
         
@@ -266,6 +266,35 @@ const createCells = (gridSize) => {
 
 }
 
+
+const saveLocally = (grid) => {
+    let tileData = []
+    for (let i=0; i<grid.cells.length; i++){
+        let cell = grid.cells[i]
+        if (cell.tile){
+            tileData.push([i, cell.tile.value])
+        }
+    }
+    localStorage.setItem('tileData', JSON.stringify(tileData))
+    localStorage.setItem('score', grid.score)
+    localStorage.setItem('gridSize', grid.gridSize)
+}
+
+const processSaveData = (grid, savedTileData) => {
+    if (!savedTileData) {
+
+        return
+    }
+    grid.clearTiles()
+    const tileData = JSON.parse(savedTileData)
+    
+    for (const data of tileData){
+        const [cellIndex, tileVal] = data
+        new Tile(grid.cells[cellIndex], tileVal)
+    }
+    grid.score = parseInt(localStorage.getItem('score'))
+    updateScoreBoard(grid)
+}
 
 
 

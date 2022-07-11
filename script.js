@@ -1,5 +1,7 @@
 import Grid from "./src/Grid.js"
+import Tile from "./src/Tile.js"
 import openOption from "./src/optionScreen.js"
+import updateScoreBoard from "./src/scoreBoard.js"
 
 
 // the gridElement size; default size 4x4
@@ -10,32 +12,48 @@ const gridElement = document.getElementById('the-grid')
 
 
 
-export let grid = new Grid(GRID_SIZE, gridElement)
+export let grid 
+let savedTileData = localStorage.getItem('tileData')
+let gridSize = parseInt(localStorage.getItem('gridSize'))
+if (savedTileData){
+    grid = new Grid(gridSize, gridElement, savedTileData)
+}
+else{
+    grid = new Grid(GRID_SIZE, gridElement)
+    new Tile(grid.chooseInactiveCells)
+    new Tile(grid.chooseInactiveCells)
+}
+
 
 document.addEventListener('keydown', (e)=>{
     switch(e.key){
         case 'w':
         case 'W':
         case 'ArrowUp':
-            grid.moveTiles('U')
+            doMove('U')
             break
         case 's':
         case 'S':
         case 'ArrowDown':
-            grid.moveTiles('D')
+            doMove('D')
             break
         case 'a':
         case 'a':
         case 'ArrowLeft':
-            grid.moveTiles('L')
+            doMove('L')
             break
         case 'd':
         case 'D':
         case 'ArrowRight':
-            grid.moveTiles('R')
+            doMove('R')
             break
     }
 })
+
+const doMove = async (dir) => {
+    grid.moveTiles(dir)
+    updateScoreBoard(grid)
+} 
 
 
 
@@ -46,6 +64,7 @@ optionBtn.addEventListener('click', async () => {
     if (chgGridSize === 'R') //Restart
         grid = new Grid(grid.gridSize, gridElement)
     else if(chgGridSize)
+        localStorage.setItem('gridSize', chgGridSize)
         grid = new Grid(chgGridSize, gridElement)
 })
 
