@@ -2,7 +2,6 @@ import Grid from "./src/Grid.js"
 import openOption from "./src/optionScreen.js"
 import updateScoreBoard from "./src/scoreBoard.js"
 
-window.onscroll = function () { window.scrollTo(0, 0); };
 // the gridElement size; default size 4x4
 const GRID_SIZE = 4
 
@@ -48,7 +47,7 @@ document.addEventListener('keydown', (e)=>{
 })
 
 
-const body = document.getElementsByTagName('body')
+
 
 grid.element.addEventListener("touchstart", startTouch, false);
 grid.element.addEventListener("touchmove", moveTouch, false);
