@@ -131,7 +131,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 95vh;
     }
 
 .main-page-hr {
@@ -142,14 +142,14 @@ button:hover {
 
 /* HTP screen CSS */
 .pop-screen-cnt {
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   position: absolute;
   display: none;
 }
 
 .pop-screen-bg {
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
