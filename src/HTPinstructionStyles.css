@@ -1,0 +1,78 @@
+.HTP-instruction {
+    margin: auto;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.HTP-instruction h1 {
+    margin: 0;
+    font-size: min(5vmin, 30px);
+    color: aliceblue;
+}
+
+
+.HTP-instruction li {
+    font-size: max(2.5vmin, 14px);
+    color: aliceblue;
+    
+}
+
+.HTP-bg-arrow-cnt {
+    margin: 20% auto;
+    width: min(175px, 35vmin);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2%;
+    
+}
+
+.key-up {
+    grid-column-start: 2;
+}
+
+.key-left {
+    grid-column-start: 1;
+}
+
+/* Arrow key animation */
+
+.key-arrow {
+    border: 2px solid black;
+    border-radius: 1vmin;
+    background-color: white;
+    transition: all 500ms;
+}
+
+.key-arrow svg {
+    fill: grey;
+    display: block;
+    transition: all 500ms;
+}
+
+.key-arrow-active {
+    background-color: rgb(59, 54, 54);
+    border-color: white;
+}
+
+
+
+
+
+.key-arrow-active svg {
+    fill: rgb(255, 255, 255)
+}
+
+
+@media only screen and (max-width: 640px) {
+    .HTP-instruction{
+        width: 85%;
+        margin: 7% auto;
+        height: 50%;
+    }
+    .HTP-bg-arrow-cnt {
+        margin: auto;
+    }
+}
+

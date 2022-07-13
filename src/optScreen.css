@@ -1,0 +1,178 @@
+
+
+:root {
+    --opt-animation-time: 300ms 
+  }
+
+.opt-scrn-cnt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.chg-grid-size-cnt {
+    width: min(600px, 80%);
+    border: 0;
+    border-bottom: solid rgb(192, 192, 192) 1px;
+    margin-bottom: 30px;
+
+}
+
+.chg-grid-size-cnt h1 {
+    margin: 20px;
+    color: aliceblue;
+    text-align: left;
+    border-bottom: 5px aliceblue;
+
+}
+
+.chg-grid-size-opts {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.chg-grid-size-opts button {
+    font-weight: bolder;
+    font-size: 14px;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    /* padding: 10px; */
+    border-radius: 10px;
+    z-index: 5;
+}
+.restart-btn-cnt {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.restart-btn-cnt button{
+    font-weight: bolder;
+    font-size: 16px;
+    width: 200px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.opt-scrn-hr {
+    width: min(600px, 80%);
+    height: 30px;
+    border: 0;
+    border-bottom: solid rgb(145, 143, 143) 2px;
+}
+
+.opt-scrn-cnt button {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.opt-scrn-cnt button:hover {
+    background-color: rgb(93, 93, 93);
+    color: aliceblue;
+
+
+}
+
+.chg-grid-size-active {
+    background-color: rgb(93, 93, 93);
+    color: aliceblue;
+    border: 5px solid rgb(255, 255, 255);
+}
+
+.chng-confirm-scrn-cnt{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    opacity: 1;
+    background-color: #000000ab;
+    z-index: 6;
+}
+
+.chng-confirm-scrn-cnt-active{
+    animation: chng-cnt-screen-show var(--opt-animation-time) ease-in-out;
+}
+
+@keyframes chng-cnt-screen-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.chng-confirm-scrn {
+    background-color: #252525;
+    width: min(450px, 45vw);
+    color: aliceblue;
+    margin: auto;
+    border-radius: 7px;
+    position: absolute;
+    padding: 5%;
+    border: solid rgb(223, 224, 225) 2px;
+    
+    /* Flex Configuration */
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chng-confirm-scrn-active {
+    animation: show-confirm-scrn var(--opt-animation-time) ease-out;
+}
+
+@keyframes show-confirm-scrn {
+    from {
+        opacity: 0;
+        transform: translate(0, 100px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    
+}
+
+.chng-confirm-scrn-deActive {
+    animation: hide-confirm-scrn var(--opt-animation-time) ease-out;
+}
+
+@keyframes hide-confirm-scrn {
+    from {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(0, 100px);
+    }
+    
+}
+
+.chng-confirm-scrn-opt-cnt{
+
+    display: flex;
+}
+.chng-confirm-scrn button {
+    border: 0;
+    font-size: 18px;
+    font-weight: bolder;
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    margin: 5%;
+    border: solid rgb(72, 72, 72) 2px;
+}
+
+.chng-confirm-scrn button {
+    background-color: #ffffff;
+    color: rgb(18, 13, 13);
+}
