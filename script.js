@@ -63,7 +63,9 @@ function startTouch(e) {
 };
  
 function moveTouch(e) {
+    e.preventDefault();
   if (initialX === null || initialY === null) {
+    
     return;
   }
  
@@ -99,8 +101,6 @@ function moveTouch(e) {
  
   initialX = null;
   initialY = null;
-   
-  e.preventDefault();
 }
 
 const doMove = async (dir) => {
