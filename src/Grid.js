@@ -237,7 +237,7 @@ export default class Grid {
                     moveCounts.push(moveCount)
                     pointsCounter += (value * 2)
                     // Checks for win
-                    if (value * 2 === 32) this.isPoint2048 = true
+                    if (value * 2 === 64) this.isPoint2048 = true
                 }
                 else {
                     moveCounts.push(moveCount)

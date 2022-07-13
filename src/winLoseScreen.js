@@ -91,7 +91,7 @@ function createWinLoseElement() {
         X
         </div>
         <div class="win-screen">
-            <h1></h1>
+            <h2></h2>
             <h2></h2>
             <div class="play-again-cnt">
                 <button>Play Again🤩</button>
