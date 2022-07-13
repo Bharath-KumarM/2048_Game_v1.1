@@ -22,6 +22,7 @@
 body {
   background-color: var(--color-base);
   transition: background-color 1.5s;
+  height: 95vh;
 }
 
 button:hover {
