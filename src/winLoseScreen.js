@@ -86,7 +86,7 @@ function createWinLoseElement() {
     let winLoseCnt = document.getElementsByClassName("pop-screen-cnt")[0]
     winLoseCnt.innerHTML = `
 <div class="pop-screen-bg">
-    <div class="pop-screen">
+    <div class="pop-screen win-lose-scrn">
         <div class="close-btn">
         X
         </div>

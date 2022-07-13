@@ -548,12 +548,19 @@ button:hover {
 }
 
 .hi-score-screen {
+  width: min(400px, 80vw);
+  height: 30vh;
   
 }
 .hi-score-screen .close-btn {
   top: 5px;
   left: 5px;
   margin: 0;
+}
+
+.win-lose-scrn {
+  width: min(400px, 80vw);
+  height: 30vh;
 }
 
 
