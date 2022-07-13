@@ -1,5 +1,4 @@
 import Grid from "./src/Grid.js"
-import Tile from "./src/Tile.js"
 import openOption from "./src/optionScreen.js"
 import updateScoreBoard from "./src/scoreBoard.js"
 
@@ -19,9 +18,7 @@ if (savedTileData){
     grid = new Grid(gridSize, gridElement, savedTileData)
 }
 else{
-    grid = new Grid(GRID_SIZE, gridElement)
-    new Tile(grid.chooseInactiveCells)
-    new Tile(grid.chooseInactiveCells)
+    grid = new Grid(GRID_SIZE, gridElement, 'new')
 }
 
 
@@ -50,6 +47,66 @@ document.addEventListener('keydown', (e)=>{
     }
 })
 
+
+
+
+grid.element.addEventListener("touchstart", startTouch, false);
+grid.element.addEventListener("touchmove", moveTouch, false);
+ 
+// Swipe Up / Down / Left / Right
+var initialX = null;
+var initialY = null;
+ 
+function startTouch(e) {
+  initialX = e.touches[0].clientX;
+  initialY = e.touches[0].clientY;
+};
+ 
+function moveTouch(e) {
+  if (initialX === null) {
+    return;
+  }
+ 
+  if (initialY === null) {
+    return;
+  }
+ 
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+ 
+  var diffX = initialX - currentX;
+  var diffY = initialY - currentY;
+ 
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    if (diffX > 0) {
+      // swiped left
+      console.log("swiped left");
+      doMove('L')
+    } else {
+      // swiped right
+      console.log("swiped right");
+      doMove('R')
+    }  
+  } else {
+    // sliding vertically
+    if (diffY > 0) {
+      // swiped up
+      console.log("swiped up");
+      doMove('U')
+    } else {
+      // swiped down
+      console.log("swiped down");
+      doMove('D')
+    }  
+  }
+ 
+  initialX = null;
+  initialY = null;
+   
+  e.preventDefault();
+};
+
 const doMove = async (dir) => {
     grid.moveTiles(dir)
     updateScoreBoard(grid)
@@ -62,10 +119,9 @@ optionBtn.addEventListener('click', async () => {
     let chgGridSize = await openOption(grid)
     console.log(chgGridSize)
     if (chgGridSize === 'R') //Restart
-        grid = new Grid(grid.gridSize, gridElement)
+        grid = new Grid(grid.gridSize, gridElement, 'new')
     else if(chgGridSize)
-        localStorage.setItem('gridSize', chgGridSize)
-        grid = new Grid(chgGridSize, gridElement)
+        grid = new Grid(chgGridSize, gridElement, 'new')
 })
 
 

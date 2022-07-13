@@ -1,5 +1,7 @@
+import { grid } from "../script.js"
 import updateScoreBoard from "./scoreBoard.js"
 import Tile from "./Tile.js"
+import {openWinLoseScrn} from "./winLoseScreen.js"
 
 
 
@@ -39,17 +41,11 @@ export default class Grid {
         this.insertCells()
         this.isAnimateEnd = true
         this.pointsPerMove = 0
-
+        this.isPoint2048 = false
+        this.savedGameData = savedGameData
         processSaveData(this, savedGameData)
     }
 
-    clearTiles(){
-        for (const cell of this.cells){
-            if (cell.tile !== null) {
-                cell.tile.remove()
-            }
-        }
-    }
 
     insertCells() {
         // remove exiting cells, comes effective when grid size changes
@@ -59,6 +55,9 @@ export default class Grid {
         for (const cell of this.cells){
             this.element.appendChild(cell.cellElement)
         }
+        if (this.savedGameData)//check it is main or HTP grid
+            new Tile(this.chooseInactiveCells)
+        new Tile(this.chooseInactiveCells)
     }
 
     get chooseInactiveCells(){
@@ -110,8 +109,19 @@ export default class Grid {
 
         this.isAnimateEnd = true
 
-        // Save the game progress💾
-        saveLocally(this)
+        if (this.savedGameData) {
+            // Save the game progress💾
+            saveLocally(this)
+
+            // Check for Win
+            if (this.isPoint2048) {
+                this.isPoint2048 = false
+                await openWinLoseScrn('win')
+                clearTiles(this.cells)
+                new Tile(this.chooseInactiveCells)
+                new Tile(this.chooseInactiveCells)
+            }
+        }
     }
 
 
@@ -191,10 +201,19 @@ export default class Grid {
         }
     }
 
-    spawnNewTile() {
+    async spawnNewTile () {
         const inactiveCell = this.chooseInactiveCells
         if (inactiveCell !== null)
             new Tile(inactiveCell)
+        else{
+            // no space for a new tile
+            if (!isNextMovePossible(this.cells, this.gridSize)){
+                await openWinLoseScrn('lose')
+                clearTiles(this.cells)
+                new Tile(this.chooseInactiveCells)
+                new Tile(this.chooseInactiveCells)
+            }
+        }
     }
 
 
@@ -217,6 +236,8 @@ export default class Grid {
                     moveCount++
                     moveCounts.push(moveCount)
                     pointsCounter += (value * 2)
+                    // Checks for win
+                    if (value * 2 === 32) this.isPoint2048 = true
                 }
                 else {
                     moveCounts.push(moveCount)
@@ -278,6 +299,15 @@ const saveLocally = (grid) => {
     localStorage.setItem('tileData', JSON.stringify(tileData))
     localStorage.setItem('score', grid.score)
     localStorage.setItem('gridSize', grid.gridSize)
+    updateScoreBoard(grid)
+}
+
+const clearTiles = (cells) => {
+    for (const cell of cells){
+        if (cell.tile !== null) {
+            cell.tile.remove()
+        }
+    }
 }
 
 const processSaveData = (grid, savedTileData) => {
@@ -285,7 +315,12 @@ const processSaveData = (grid, savedTileData) => {
 
         return
     }
-    grid.clearTiles()
+    if (savedTileData === 'new'){
+        saveLocally(grid)
+        return
+    }
+
+    clearTiles(grid.cells)
     const tileData = JSON.parse(savedTileData)
     
     for (const data of tileData){
@@ -295,6 +330,28 @@ const processSaveData = (grid, savedTileData) => {
     grid.score = parseInt(localStorage.getItem('score'))
     updateScoreBoard(grid)
 }
+
+const isNextMovePossible = (cells, gridSize) => {
+    let tileVal = []
+    let size = gridSize
+    for (let cell of cells){
+        if (cell.tile) tileVal.push(cell.tile.value)
+    }
+    for (let i=0; i<tileVal.length; i++){
+        if (tileVal[i+size] === tileVal[i] || tileVal[i-size] === tileVal[i]){
+            return true
+        }
+        if ((i+1)%gridSize != 0 && tileVal[i+1] === tileVal[i]){
+            return true
+        }
+        if ((i+1)%gridSize != 1 && tileVal[i-1] === tileVal[i]){
+            return true
+        }
+    }
+    return false
+}
+
+
 
 
 

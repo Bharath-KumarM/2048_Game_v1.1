@@ -26,7 +26,6 @@ const arrowMoves = ['U', 'D', 'L', 'R', 'L']
 const openHTPbg = async () => {
     isAnimationRunning = true
 
-    if (grid) grid.clearTiles()
 
     createHTPelements()
     referAllElements()
@@ -44,8 +43,8 @@ const openHTPbg = async () => {
         await grid.moveTiles(dir)
         await delay(1000)
         keyArrowChild[dirIndex].classList.remove('key-arrow-active')
-
-        if (count % 12 === 0) {
+        
+        if (count != 0 && count % 12 === 0) {
             grid.clearTiles()
         }
         count++
@@ -53,7 +52,6 @@ const openHTPbg = async () => {
 }
 
 const closeHTPbg =  () => {
-    grid.clearTiles()
     isAnimationRunning = false
 
     //Starts the closing animation
