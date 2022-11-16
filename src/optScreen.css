@@ -49,6 +49,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .restart-btn-cnt button{
@@ -93,29 +94,36 @@
     opacity: 1;
     background-color: #000000ab;
     z-index: 6;
+    transition: all var(--opt-animation-time) ease-in-out;
 }
 
-.chng-confirm-scrn-cnt-active{
-    animation: chng-cnt-screen-show var(--opt-animation-time) ease-in-out;
+.chng-confirm-scrn-cnt.hide{
+    background-color: transparent;
 }
+
 
 @keyframes chng-cnt-screen-show {
     from {
         opacity: 0;
+        transform: translate(0, 100px);
+        
+    }
+    50%{
+        opacity: 1;
     }
     to {
-        opacity: 1;
+        transform: translate(0, 0);
     }
 }
 
 .chng-confirm-scrn {
     background-color: #252525;
-    width: min(450px, 45vw);
+    width: min(350px, 80vw);
     color: aliceblue;
     margin: auto;
     border-radius: 7px;
     position: absolute;
-    padding: 5%;
+    padding: 3%;
     border: solid rgb(223, 224, 225) 2px;
     
     /* Flex Configuration */
@@ -123,49 +131,31 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    /* Animation */
+    transition: all var(--opt-animation-time) ease-in-out;
+    animation: chng-cnt-screen-show var(--opt-animation-time) ease-in-out;
 }
 
-.chng-confirm-scrn-active {
-    animation: show-confirm-scrn var(--opt-animation-time) ease-out;
+.chng-confirm-scrn.hide{
+    /* background-color: transparent; */
+    opacity: 0;
+    transform: translate(0, 100px);
 }
 
-@keyframes show-confirm-scrn {
-    from {
-        opacity: 0;
-        transform: translate(0, 100px);
-    }
-    to {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-    
-}
 
-.chng-confirm-scrn-deActive {
-    animation: hide-confirm-scrn var(--opt-animation-time) ease-out;
-}
 
-@keyframes hide-confirm-scrn {
-    from {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-    to {
-        opacity: 0;
-        transform: translate(0, 100px);
-    }
-    
-}
 
 .chng-confirm-scrn-opt-cnt{
-
     display: flex;
+    justify-content: space-around;
+
 }
 .chng-confirm-scrn button {
     border: 0;
     font-size: 18px;
     font-weight: bolder;
-    width: 50%;
+    width: min(100px, 50%);
     height: 40px;
     border-radius: 5px;
     margin: 5%;

@@ -5,42 +5,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="./src/img/coding.png">
+  <link rel="icon" type="image/x-icon" href="./src/img/favicon.png">
   <title>2048 Game🔥</title>
   <link rel="stylesheet" href="./styles.css">
   <!-- <link rel="stylesheet" href="src/HTPinstructionStyles.css"> -->
   <link rel="stylesheet" href="src/optScreen.css">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
 
 <body>
-  <div class="main-page">
-
-    <div class="pop-screen-cnt">
-      <div class="pop-screen-bg">
-        <div class="pop-screen">
-            <div class="close-btn">
-            X
-            </div>
-            <div class="win-screen">
-                <h2>High Score: 55555</h2>
-                <h2>Current Score: 88888</h2>
-            </div>
-        </div>
-      </div>
-    </div>
-      
-    
+  <div class="main-page">    
     <div class="game-title">
-      <div class="title-btn HTP-btn">🤔</div>
-      <div class="title-btn option-btn">🛠️</div>
+      <div class="title-btn HTP-btn material-symbols-outlined">
+        help
+      </div>
+      <div class="title-btn option-btn material-symbols-outlined">
+        settings_suggest
+      </div>
       <h1>2048</h1> 
-      <div class="title-btn dark-light-btn">🌙</div>
+      <div class="title-btn dark-light-btn material-symbols-outlined">
+        dark_mode
+      </div>
       <div class="score-board">
-        <div class="score-points">
-          +24
-        </div>
         <div class="score-board-title">
           Score
         </div>
@@ -64,68 +51,83 @@
   <script type="module" src="./src/winLoseScreen.js"></script>
   <script src="./src/darkLight.js"></script>
   <script src="./src/swipeDetect.js"></script>
+  <!-- All Templates -->
 
-  <script type="text/template" id="HTP-html">
+  <template id="HTP-html">
     <div class="pop-screen-bg">
       <div class="HTP-bg pop-screen">
-        <div class="close-btn">
-        X
-        </div>
+          <button class="close-btn material-symbols-outlined">
+            close
+          </button>
+        <h1 class="HTP-heading">How To Play✨</h1>
+        <div class="HTP-cnt-wrap">
+
         <div class="HTP-instruction">
-          <h1>How To Play✨</h1>
-          <ul>
-            <li>
-              🎮Press the arrow keys⌨️ to move the tiles in the grid🪟.
-            </li>
-            <li>
-              🎯Aim is to group 🔢number tiles with the same numbers🎉.  
-            </li>
-            <li>
-              Each club you make doubles(2X) the number. Ultimately reach 2048 to win!🥇
-            </li>
-            <li>
-              🎰The game can be restarted or resized in the option section🛠️
-            </li>
-          </ul>
+          <div class="HTP-instruction-list">
+            <ul>
+              <li>
+                🎮Press the arrow keys⌨️ to move the tiles in the grid🪟.
+              </li>
+              <li>
+                🎯Aim is to group 🔢number tiles with the same numbers🎉.  
+              </li>
+              <li>
+                Each club you make doubles(2X) the number. Ultimately reach 2048 to win!🥇
+              </li>
+              <li>
+                🎰The game can be restarted or resized in the option section🛠️
+              </li>
+            </ul>
+          </div>
           
+          <div class="HTP-bg-arrow-wrap"> 
           <div class="HTP-bg-arrow-cnt"> 
-            <div class="key-arrow key-up " style="transform: rotate(180deg);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                  stroke-width="0.25" />
-              </svg>
+            <!-- <div class="key-arrow key-up " style="transform: rotate(180deg);"> -->
+            <div class="key-arrow key-up ">
+              <div>
+                <span class="material-symbols-outlined">
+                  keyboard_arrow_up
+                </span>
+              </div>
             </div>
-            <div class="key-arrow key-left" style="transform: rotate(90deg);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                  stroke-width="0.25" />
-              </svg>
+            <div class="key-arrow key-left" style="transform: rotate(-90deg);">
+              <div>
+                <span class="material-symbols-outlined">
+                  keyboard_arrow_up
+                </span>
+              </div>
             </div>
-            <div class="key-arrow " style="transform: rotate(0deg);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                  stroke-width="0.25" />
-              </svg>
+            <div class="key-arrow " style="transform: rotate(180deg);">
+              <div>  
+                <span class="material-symbols-outlined">
+                  keyboard_arrow_up
+                </span>
+              </div>
             </div>
-            <div class="key-arrow " style="transform: rotate(-90deg);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 28 28">
-                <path d="m 4 2.5 l 10 10 l 10 -10 l 2.5 2.5 l -12.5 12.5 l -12.5 -12.5 z m 10 0 m 0 0 " stroke="#000000"
-                  stroke-width="0.25" />
-              </svg>
+            <div class="key-arrow " style="transform: rotate(+90deg);">
+              <div>
+                <span class="material-symbols-outlined">
+                  keyboard_arrow_up
+                </span>
+              </div>
             </div>
           </div>
+          </div> 
         </div> 
-        <hr/>
         <div id="HTP-grid">
         </div>
       </div> 
     </div>
-  </script>
+  </div>
 
-  <script type="text/template" id="opt-scrn-html">
+  </template>
+
+  <template id="opt-scrn-html">
     <div class="pop-screen-bg">
       <div class="pop-screen">
-        <div class="close-btn">X</div>
+        <button class="close-btn material-symbols-outlined">
+          close
+        </button>
         <div class="opt-scrn-cnt">
           <div class="chg-grid-size-cnt">
             <h3>Change Grid Size📐</h3>
@@ -143,21 +145,58 @@
           <div class="restart-btn-cnt">
             <button>Start Fresh🤩</button>
           </div>
-          <hr class="opt-scrn-hr">
+          <!-- <hr class="opt-scrn-hr"> -->
         </div>
-        <div class="chng-confirm-scrn-cnt">
-          <div class="chng-confirm-scrn">
-            <h3>Are you sure😕? You will lose the progress🎈</h3>
-            <div class="chng-confirm-scrn-opt-cnt">
-              <button class="chng-confirm-scrn-opt-yes">YES</button>
-              <button class="chng-confirm-scrn-opt-no">NO</button>
-            </div>
-          </div> 
 
-        </div>
       </div>
     </div>
-  </script>
+  </template>
+  <template id="grid-size-chng-scrn">
+    <div class="chng-confirm-scrn-cnt">
+      <div class="chng-confirm-scrn">
+        <!-- <div> -->
+          <h3>
+            You will lose the progress
+          </h3> 
+          <span>
+            Do you like to proceed?
+          </span>
+        <!-- </div> -->
+        <div class="chng-confirm-scrn-opt-cnt">
+          <button class="chng-confirm-scrn-opt-yes">YES</button>
+          <button class="chng-confirm-scrn-opt-no">NO</button>
+        </div>
+      </div> 
+    </div>
+  </template>
+  <template id="score-board-temp">
+    <div class="pop-screen-bg">
+      <div class="pop-screen hi-score-screen">
+          <button class="close-btn material-symbols-outlined">
+            close
+          </button>
+          <div class="hi-score">
+              <h2>High Score⚡:  </h2>
+          </div>
+      </div>
+  </div>
+  </template>
+  <template id="win-lose-scrn-temp">
+    <div class="pop-screen-bg">
+      <div class="pop-screen win-lose-scrn">
+          <button class="close-btn material-symbols-outlined">
+            close
+          </button>
+          <div class="win-screen">
+              <h2></h2>
+              <h2></h2>
+              <div class="play-again-cnt">
+                  <button>Play Again🤩</button>
+              </div>
+          </div>
+      </div>
+    </div>
+  </template>
 </body>
 
 </html>

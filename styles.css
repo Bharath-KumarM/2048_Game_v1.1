@@ -43,27 +43,23 @@ button:hover {
   color: var(--color-prime);
 
   font-family: 'Roboto Mono', monospace;
-  font-size: calc(var(--the-grid-side) / 13);
+  font-size: calc(var(--the-grid-side) / 16);
 
 }
 /* "?" icon HTP Button */
-.title-btn{
-  font-size: calc(var(--the-grid-side) / 30);
-  padding: 0.5%;
-  border-radius: 20%;
-  border: 3px solid rgb(168, 168, 168);
+.game-title .title-btn{
+  font-size: 5vmin;
+  padding: 2%;
   color: var(--color-prime);
-  background-color: var(--color-base);
-  font-weight: bolder;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 1s background-color;
+  transition: 0.4s background-color;
 }
 
 
 .title-btn:hover{
-  background-color: var(--color-prime);
   cursor: pointer;
 }
 
@@ -106,13 +102,10 @@ button:hover {
   color: var(--color-prime);
   font-size: alc(var(--HTP-grid-side) / 10);
   font-weight: bolder;
-  opacity: 0;
-}
-
-.score-points-active {
   opacity: 1;
   animation: score-points-move 400ms linear 1;
 }
+
 
 @keyframes score-points-move {
   form {
@@ -136,16 +129,16 @@ button:hover {
 
 .main-page-hr {
     border: none;
-    border-top: dashed 0.4vmin var(--color-prime);
+    border-top: dashed 2px var(--color-prime);
     width: var(--the-grid-side);
   }
 
 /* HTP screen CSS */
 .pop-screen-cnt {
-  height: 95vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   position: absolute;
-  display: none;
+  /* display: none; */
 }
 
 .pop-screen-bg {
@@ -162,8 +155,8 @@ button:hover {
 
 .pop-screen {
   background-color: #0a0101dd;
-  width: min(900px, 90vw);
-  height: 85vh;
+  width: min(500px, 90vw);
+  /* height: 85vh; */
   margin: auto;
   margin-top: 7.5vh;
   border-radius: 7px;
@@ -181,56 +174,131 @@ button:hover {
 
 
 /* How -to-play-bg close btn */
-.close-btn {
+.pop-screen .close-btn {
   background-color: transparent;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.53);
-  font-weight: 700;
-  border: solid white 0.5px;
-  width: 4vmin;
-  border-radius: 2.5px;
+  color: rgb(255, 255, 255);
+  border: solid rgb(180, 180, 180) 2px;
+
+  /* font-weight: 700; */
+  border-radius: 5px;
+
   position: absolute;
   margin: 10px;
-  font-size: 3vmin;
+  left: 0;
+  top: 0;
+
+  font-size: 18px;
 }
 
 .close-btn:hover {
-  color: rgb(255, 255, 255);
-  font-size: 3.1vmin;
+  color: rgb(137, 137, 137);
 }
-
-
-/* Horizontal or Vertical line Specific to HTP*/
-.HTP-bg hr {
-  border: 4px;
-  height: 80%;
-  margin: auto 0;
-  border-style: none dashed none none;
-  color: rgb(161, 192, 198)
-}
-
 
 /* The changes for smaller screens for HTP*/
+
+.HTP-bg {
+  width: min(700px, 80vw);
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+.HTP-heading{
+  font-size: 1.5rem;
+  margin: 5px;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+
+  color: aliceblue;
+}
+
+.HTP-cnt-wrap{
+  height: 100%;
+  display: flex;
+}
+
 @media only screen and (max-width: 640px) {
   .HTP-bg {
-      flex-direction: column;
-  }
-  .HTP-bg hr {
-      width: 80%;
-      height: 0%;
-      border-style: dashed none none none;
-      margin: 0 auto;
+    align-content: space-between;
+    flex-direction: column;
+    height: min(600px, 80vh);
+
   }
 
-  .HTP-bg-arrow-cnt {
-      margin: 0 auto;
+  .HTP-cnt-wrap{
+    flex-direction: column;
+    justify-content: space-around;
   }
+}
+@media only screen and (min-width: 640px) {
+  .HTP-bg {
+    gap: 30px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .HTP-heading{
+    flex: 0 0 98%;
+  }
+}
+
+
+/* HTP Instruction Styling */
+
+.HTP-instruction {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.HTP-instruction-list{
+  font-size: 14px;
+  color: rgb(227, 227, 227);
+}
+ul, ol {
+  margin-left: 1em;
+  text-align: left;
+}
+@media only screen and (max-width: 640px) {
+  .HTP-instruction{
+    max-height: 275px;
+    justify-content: space-evenly;
+    align-items: center;
+    height: auto;
+  }
+  .HTP-instruction-list{
+    overflow-y: auto;
+    margin: 12px;
+    max-width: min(90%, 400px);
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .HTP-instruction{
+    padding-left: 10px;
+    width: 50%;
+    gap: 20px;
+  }
+  
+}
+
+.HTP-instruction-list::-webkit-scrollbar {
+  width: 4px;
+  scrollbar-gutter: stable;
+  background-color: white;
+}
+
+.HTP-instruction-list::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 1px;
+}
+.HTP-instruction-list::-webkit-scrollbar-thumb:hover{
+  background-color: gray;
 }
 
 /* HTP Grid */
 #HTP-grid {
   background-color: rgb(195, 194, 194);
-  border-radius: 1vmin;
+  border-radius: 2%;
   width: var(--HTP-grid-side);
   height: var(--HTP-grid-side);
   margin: auto;
@@ -259,7 +327,6 @@ button:hover {
   transition: 1s background-color;
   
 }
-
 
 /* For Cells */
 .cell {
@@ -373,35 +440,90 @@ button:hover {
       }
   }
 
-/* HTP Instruction Styling */
-
-.HTP-instruction {
-  margin: auto;
-  width: 45%;
+/* Arrow key animation */
+.HTP-bg-arrow-wrap {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.HTP-instruction h1 {
-  margin: 0;
-  font-size: min(5vmin, 30px);
-  color: aliceblue;
-}
-
-
-.HTP-instruction li {
-  font-size: max(2.5vmin, 14px);
-  color: aliceblue;
-  
+  justify-content: center;
+  padding: 5px;
+  padding-bottom: 20px;
+  height: auto;
 }
 
 .HTP-bg-arrow-cnt {
-  margin: 20% auto;
-  width: min(175px, 35vmin);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2%;
+  
+}
+@media only screen and (min-width: 640px) {
+  .HTP-bg-arrow-cnt {
+    width: min(150px, 100%);
+  }
+}
+@media only screen and (max-width: 640px) {
+  .HTP-bg-arrow-cnt {
+  width: min(100px, 100%);
+  margin: 0 auto;
+  }
+  .HTP-bg-arrow-wrap {
+    border-bottom: 1px dashed rgb(171, 171, 171);
+  }
+}
+
+.key-arrow {
+  background-color: transparent;
+
+  aspect-ratio: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.key-arrow span{
+  font-weight: bold;
+  font-size: min(12vw, 2rem);
+}
+
+.key-arrow div{
+  border-radius: 10%;
+  border: 2px solid black;
+  /* transition: all 400ms; */
+  background-color: white;
+
+  width: 85%;
+  height: 85%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.key-arrow-active  div{
+  position: static;
+
+  background-color: rgb(59, 54, 54);
+  border-color: white;
+  color: white;
+
+  width: 90%;
+  height: 90%;
+  z-index: 2;
+  animation: key-zoom 200ms ease-in;
+}
+
+@keyframes key-zoom {
+  50%{
+    width: 100%;
+    height: 100%;
+  }
+  100%{
+    width: 90%;
+    height: 90%;
+  }
   
 }
 
@@ -413,42 +535,7 @@ button:hover {
   grid-column-start: 1;
 }
 
-/* Arrow key animation */
 
-.key-arrow {
-  border: 2px solid black;
-  border-radius: 1vmin;
-  background-color: white;
-  transition: all 100ms;
-}
-
-.key-arrow svg {
-  fill: grey;
-  display: block;
-  transition: all 100ms;
-}
-
-.key-arrow-active {
-  background-color: rgb(59, 54, 54);
-  border-color: white;
-}
-
-
-.key-arrow-active svg {
-  fill: rgb(255, 255, 255)
-}
-
-
-@media only screen and (max-width: 640px) {
-  .HTP-instruction{
-      width: 85%;
-      margin: 7% auto;
-      height: 50%;
-  }
-  .HTP-bg-arrow-cnt {
-      margin: auto;
-  }
-}
 
 /* pop Screeen Styling  */
 
@@ -549,8 +636,8 @@ button:hover {
 }
 
 .hi-score-screen {
-  width: min(400px, 80vw);
-  height: 30vh;
+  width: min(300px, 80vw);
+  height: 100px;
   
 }
 .hi-score-screen .close-btn {

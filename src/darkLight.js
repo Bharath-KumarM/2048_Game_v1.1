@@ -32,7 +32,7 @@ function makeLight(bodyElement, darkLightBtn) {
     bodyElement.style.setProperty('--color-base', 'rgb(230, 248, 247)')
     bodyElement.style.setProperty('--color-grid', 'rgba(118, 149, 149, 0.833)')
     bodyElement.style.setProperty('--color-cell', 'rgba(203, 220, 223, 0.92)')
-    darkLightBtn.textContent = '🌙'
+    darkLightBtn.textContent = 'dark_mode'
     localStorage.setItem('isDark', '')
 }
 
@@ -41,6 +41,6 @@ function makeDark(bodyElement, darkLightBtn) {
     bodyElement.style.setProperty('--color-base', 'rgb(24, 23, 23)')
     bodyElement.style.setProperty('--color-grid', 'rgb(136, 136, 136)')
     bodyElement.style.setProperty('--color-cell', 'rgba(72, 68, 68, 0.92)')
-    darkLightBtn.textContent = '💡'
+    darkLightBtn.textContent = 'light_mode'
     localStorage.setItem('isDark', 'Yes')
 }

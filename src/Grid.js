@@ -37,13 +37,23 @@ export default class Grid {
         this.gridSize = gridSize
         this.element = gridElement
         this.score = 0
+        this.GRID_WIN_VALUE = 8 //Debug
+
         this.cells = createCells(this.gridSize)
         this.insertCells()
+
         this.isAnimateEnd = true
+
         this.pointsPerMove = 0
-        this.isPoint2048 = false
+
+        this.isMainGrid = false //To check it is HTP Grid
         this.savedGameData = savedGameData
-        processSaveData(this, savedGameData)
+        if (savedGameData){
+            this.isMainGrid = true
+            this.savedGameData = null
+            processSaveData(this, savedGameData)
+        } 
+
     }
 
 
@@ -55,8 +65,8 @@ export default class Grid {
         for (const cell of this.cells){
             this.element.appendChild(cell.cellElement)
         }
-        if (this.savedGameData)//check it is main or HTP grid
-            new Tile(this.chooseInactiveCells)
+        //check it is main or HTP grid
+        if (this.isMainGrid) new Tile(this.chooseInactiveCells)
         new Tile(this.chooseInactiveCells)
     }
 
@@ -74,7 +84,7 @@ export default class Grid {
     // This method is 💖 of the game🔥
     async moveTiles(swipeDir) {
         if (!this.isAnimateEnd){
-            // Since the past move animation doesn't end yet!🐌
+            // Ignore move. Since the past move animation doesn't end yet!🐌
             return new Promise((res, rej) => res())
         }
 
@@ -107,21 +117,25 @@ export default class Grid {
         this.deleteCurrentTiles()
         await this.createNewTiles(start, moveTilesData, cellIncr, fieldIncr)
 
-        this.isAnimateEnd = true
 
-        if (this.savedGameData) {
+        if (this.isMainGrid) {
             // Save the game progress💾
             saveLocally(this)
 
             // Check for Win
-            if (this.isPoint2048) {
-                this.isPoint2048 = false
-                await openWinLoseScrn('win')
-                clearTiles(this.cells)
-                new Tile(this.chooseInactiveCells)
-                new Tile(this.chooseInactiveCells)
+            for (const cell of this.cells){
+                if (cell.tile ){
+                    const value = cell.tile.value
+                    if (value >= this.GRID_WIN_VALUE){                        
+                        await openWinLoseScrn('win')
+                        clearTiles(this.cells)
+                        new Tile(this.chooseInactiveCells)
+                        new Tile(this.chooseInactiveCells)
+                    }
+                }
             }
         }
+        this.isAnimateEnd = true
     }
 
 
@@ -208,7 +222,9 @@ export default class Grid {
         else{
             // no space for a new tile
             if (!isNextMovePossible(this.cells, this.gridSize)){
-                await openWinLoseScrn('lose')
+                if (this.isMainGrid){
+                    await openWinLoseScrn('lose')
+                }
                 clearTiles(this.cells)
                 new Tile(this.chooseInactiveCells)
                 new Tile(this.chooseInactiveCells)
@@ -236,8 +252,6 @@ export default class Grid {
                     moveCount++
                     moveCounts.push(moveCount)
                     pointsCounter += (value * 2)
-                    // Checks for win
-                    if (value * 2 === 64) this.isPoint2048 = true
                 }
                 else {
                     moveCounts.push(moveCount)
