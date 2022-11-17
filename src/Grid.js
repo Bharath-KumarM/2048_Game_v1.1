@@ -37,7 +37,7 @@ export default class Grid {
         this.gridSize = gridSize
         this.element = gridElement
         this.score = 0
-        this.GRID_WIN_VALUE = 8 //Debug
+        this.GRID_WIN_VALUE = 2048 //Debug
 
         this.cells = createCells(this.gridSize)
         this.insertCells()
