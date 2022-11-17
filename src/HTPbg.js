@@ -22,40 +22,56 @@ const arrowDirIndx = {
     'R': 3
 }
 const arrowMoves = ['U', 'D', 'L', 'R', 'L']
+const clearTiles = (cells) => {
+    for (const cell of cells){
+        if (cell.tile !== null) {
+            cell.tile.remove()
+        }
+    }
+}
+const openHTPbg =  async () => {
+    let running = true
 
-const openHTPbg = async () => {
-    isAnimationRunning = true
+    // Create Pop screen Cnt
+    let popScreenCnt = document.createElement('div')
+    popScreenCnt.classList.add('pop-screen-cnt')
+    document.querySelector('body').prepend(popScreenCnt)
 
+    //How to play template
+    const htpEle  = document.getElementById("HTP-html").content.cloneNode(true)
+    popScreenCnt.appendChild(htpEle)
+    getAllDOMElements()
+    
+    const handleCloseClick = ()=>{
+        running = false
+        closeHTPbg()
+    }
 
-    createHTPelements()
-    referAllElements()
-
-    popScreenBG.addEventListener('click',closeHTPbg)
-    HTPcloseBtn.addEventListener('click',closeHTPbg)
+    popScreenBG.addEventListener('click',handleCloseClick)
+    HTPcloseBtn.addEventListener('click',handleCloseClick)
     
     grid = createGrid()
     let count = 0
-    while (isAnimationRunning) {
 
+    while (running) {   
         let dir = arrowMoves[count%5]
         let dirIndex = arrowDirIndx[dir]
         keyArrowChild[dirIndex].classList.add('key-arrow-active')
+        
+        if (!running) return
         await grid.moveTiles(dir)
-        await delay(1000)
+        await delay(700)
+
         keyArrowChild[dirIndex].classList.remove('key-arrow-active')
         
-        if (count != 0 && count % 12 === 0) {
-            grid.clearTiles()
-        }
+        if (count > 0 && count % 12 === 0) clearTiles(grid.cells)
         count++
     }
 }
 
 const closeHTPbg =  () => {
-    isAnimationRunning = false
-
     //Starts the closing animation
-    popScreen.addEventListener('webkitAnimationEnd', handleCloseAnimationEnd)
+    popScreen.addEventListener('webkitAnimationEnd', ()=> popScreenCnt.remove())
     popScreen.classList.add('pop-screen-close')
     popScreenBG.classList.add('pop-screen-bg-close')
 
@@ -71,7 +87,7 @@ function createGrid() {
 }
 
 
-function referAllElements() {
+function getAllDOMElements() {
     popScreenCnt = document.getElementsByClassName("pop-screen-cnt")[0];
     popScreenCnt.style.setProperty('display', 'block')
     
@@ -87,27 +103,9 @@ function referAllElements() {
 
 }
 
-
-const handleCloseAnimationEnd = async () => {
-    popScreenCnt.style.setProperty('display', 'none')
-    popScreenBG.classList.remove('pop-screen-bg-close')
-    popScreen.classList.remove('pop-screen-close')
-
-    popScreenBG.remove()
-    popScreen.removeEventListener('webkitAnimationEnd', handleCloseAnimationEnd)
-    
-}
-
-
-
 // Open and close
-var isAnimationRunning = true
 const HTPopenBtn = document.getElementsByClassName("HTP-btn")[0];
 HTPopenBtn.addEventListener('click', openHTPbg)
 
 
-function createHTPelements() {
-    let popScreenCnt = document.getElementsByClassName("pop-screen-cnt")[0]
-    popScreenCnt.innerHTML = document.getElementById("HTP-html").textContent
-}
 

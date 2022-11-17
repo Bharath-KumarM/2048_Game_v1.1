@@ -2,8 +2,7 @@ var closeBtn,
     popScreenCnt,
     popScreenBG, 
     popScreen, 
-    playAgainBtn,
-    openResolve 
+    playAgainBtn 
 
 const handleCloseAnimationEnd = async () => {
     popScreenCnt.style.setProperty('display', 'none')
@@ -15,14 +14,14 @@ const handleCloseAnimationEnd = async () => {
     
 }
 
-const closeScreen =  (i) => {
+const closeScreen =  (openResolve) => {
     //Starts the closing animation
-    popScreen.addEventListener('webkitAnimationEnd', handleCloseAnimationEnd)
-    popScreenBG.addEventListener('webkitAnimationEnd', handleCloseAnimationEnd)
+    popScreen.addEventListener('webkitAnimationEnd', ()=>{
+        popScreenCnt.remove()
+    })
     popScreen.classList.add('pop-screen-close')
     popScreenBG.classList.add('pop-screen-bg-close')
     openResolve()
-
 }
 
 
@@ -38,36 +37,21 @@ function getAllElements() {
 }
 
 export const openWinLoseScrn = (msg) => {
+    let openResolve
     const openPromise = new Promise((res) => openResolve = res)
     createWinLoseElement()
     getAllElements()
-    popScreenCnt.style.setProperty('display', 'block')
     const winLoseScreen = document.getElementsByClassName("win-screen")[0]
     let winLoseScreenChildren = winLoseScreen.childNodes
-    closeBtn.addEventListener('click', closeScreen)
-    playAgainBtn.addEventListener('click', closeScreen)
-    if (msg === 'win'){
-        winLoseScreenChildren[1].innerHTML = 'Congratulation🎉' //h1
-        winLoseScreenChildren[3].innerHTML = 'You Won🎈' //h2
-    } 
-    else {
-        winLoseScreenChildren[1].innerHTML = 'Game Over⏸️' //h1
-        winLoseScreenChildren[3].innerHTML = 'You Lose😕' //h2
-    } 
 
-    return openPromise
-}
+    closeBtn.addEventListener('click', ()=> closeScreen(openResolve))
+    playAgainBtn.addEventListener('click', ()=> closeScreen(openResolve))
+    popScreenCnt.addEventListener('click', ()=> closeScreen(openResolve))
 
-// openWinLoseScrn('win')
-const hiScoreScrn = (msg) => {
-    const openPromise = new Promise((res) => openResolve = res)
-    createWinLoseElement()
-    getAllElements()
-    popScreenCnt.style.setProperty('display', 'block')
-    const winLoseScreen = document.getElementsByClassName("win-screen")[0]
-    let winLoseScreenChildren = winLoseScreen.childNodes
-    closeBtn.addEventListener('click', closeScreen)
-    playAgainBtn.addEventListener('click', closeScreen)
+    popScreen.addEventListener('click', (e)=>{
+        e.stopPropagation()
+    })
+
     if (msg === 'win'){
         winLoseScreenChildren[1].innerHTML = 'Congratulation🎉' //h1
         winLoseScreenChildren[3].innerHTML = 'You Won🎈' //h2
@@ -83,21 +67,11 @@ const hiScoreScrn = (msg) => {
 
 
 function createWinLoseElement() {
-    let winLoseCnt = document.getElementsByClassName("pop-screen-cnt")[0]
-    winLoseCnt.innerHTML = `
-<div class="pop-screen-bg">
-    <div class="pop-screen win-lose-scrn">
-        <div class="close-btn">
-        X
-        </div>
-        <div class="win-screen">
-            <h2></h2>
-            <h2></h2>
-            <div class="play-again-cnt">
-                <button>Play Again🤩</button>
-            </div>
-        </div>
-    </div>
-</div>
-`
+    let winLoseCnt = document.createElement('div')
+    winLoseCnt.classList.add('pop-screen-cnt')
+    document.querySelector('body').prepend(winLoseCnt)
+
+    const winLoseEle = document.getElementById("win-lose-scrn-temp").content.cloneNode(true)
+    winLoseCnt.append(winLoseEle)
+
 }
