@@ -48,7 +48,7 @@ button:hover {
 }
 /* "?" icon HTP Button */
 .game-title .title-btn{
-  font-size: 7vmin;
+  font-size: min(40px, 7vmin);
   padding: 2%;
   color: var(--color-prime);
   background-color: transparent;
