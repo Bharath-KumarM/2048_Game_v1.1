@@ -58,7 +58,7 @@ export const openWinLoseScrn = (msg) => {
     } 
     else {
         winLoseScreenChildren[1].innerHTML = 'Game Over⏸️' //h1
-        winLoseScreenChildren[3].innerHTML = 'You Lose😕' //h2
+        winLoseScreenChildren[3].innerHTML = '😕' //h2
     } 
 
     return openPromise

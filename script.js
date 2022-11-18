@@ -10,7 +10,7 @@ const gridElement = document.getElementById('the-grid')
 
 
 
-export let grid 
+let grid 
 let savedTileData = localStorage.getItem('tileData')
 let gridSize = parseInt(localStorage.getItem('gridSize'))
 if (savedTileData){
@@ -122,6 +122,26 @@ optionBtn.addEventListener('click', async () => {
 
 
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+let isAutoRun = false
+const direction = ['L', 'R', 'U', 'D']
+
+const autoPlay = async ()=>{
+  while(isAutoRun){
+    let bestMoveDir = grid.getBestMoveDir()
+    if (bestMoveDir === null) bestMoveDir = direction[Math.floor(Math.random()*4)]
+    await grid.moveTiles(bestMoveDir)
+    await delay(200)
+    updateScoreBoard(grid)
+  }
+}
+document.addEventListener('keydown', function(event) {
+  if (event.key === '=') {
+    isAutoRun = !isAutoRun
+    if(isAutoRun) autoPlay()
+  }
+})
 
 
 

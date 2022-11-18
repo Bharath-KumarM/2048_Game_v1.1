@@ -1,4 +1,3 @@
-import { grid } from "../script.js"
 import updateScoreBoard from "./scoreBoard.js"
 import Tile from "./Tile.js"
 import {openWinLoseScrn} from "./winLoseScreen.js"
@@ -81,6 +80,32 @@ export default class Grid {
             return inactiveCells[Math.floor(Math.random()*inactiveCells.length)]
     }
 
+    getBestMoveDir(){
+        const allDirection = ['L', 'R', 'U', 'D']
+        let maxPoints = 0
+        let maxPointsDir = null
+        allDirection.forEach((swipeDir)=>{
+            const [start, fieldIncr, cellIncr] = getIters(this.gridSize, swipeDir)
+    
+            // get moved tiles data & count
+            let cellIndex = start 
+            let [moveTilesData, moveStepsData, pointsCounter] = [[], [], 0]
+            for (let i=0; i<this.gridSize; i++){
+    
+                let [movedTiles, moveCounts, pointsCount] = this.getMovedTilesData(cellIndex, cellIncr)
+                moveTilesData.push(movedTiles)
+                moveStepsData.push(moveCounts)
+                pointsCounter += pointsCount
+                cellIndex += fieldIncr
+            }
+            if (maxPoints < pointsCounter){
+                maxPoints = pointsCounter
+                maxPointsDir = swipeDir
+            }
+        })
+        return maxPointsDir
+    }
+
     // This method is 💖 of the game🔥
     async moveTiles(swipeDir) {
         if (!this.isAnimateEnd){
@@ -126,8 +151,11 @@ export default class Grid {
             for (const cell of this.cells){
                 if (cell.tile ){
                     const value = cell.tile.value
-                    if (value >= this.GRID_WIN_VALUE){                        
-                        await openWinLoseScrn('win')
+                    if (value >= this.GRID_WIN_VALUE){   
+                        if (this.isMainGrid){
+                            await openWinLoseScrn('win')
+                            this.score = 0
+                        }                     
                         clearTiles(this.cells)
                         new Tile(this.chooseInactiveCells)
                         new Tile(this.chooseInactiveCells)
@@ -202,7 +230,7 @@ export default class Grid {
         }
 
         // Creates a new tile
-        this.spawnNewTile()
+        await this.spawnNewTile()
         return Promise.all(animationEndPromises)
     }
 
@@ -224,6 +252,7 @@ export default class Grid {
             if (!isNextMovePossible(this.cells, this.gridSize)){
                 if (this.isMainGrid){
                     await openWinLoseScrn('lose')
+                    this.score = 0
                 }
                 clearTiles(this.cells)
                 new Tile(this.chooseInactiveCells)
